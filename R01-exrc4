@@ -1,0 +1,6 @@
+10 INPUT "Informe seu peso: "; peso
+20 INPUT "Informe sua altura: "; altura
+30 IMC = peso / (altura * altura)
+
+40 PRINT "IMC: " + IMC
+50 END
