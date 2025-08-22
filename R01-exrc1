@@ -1,0 +1,10 @@
+10 INPUT "Digite a primeira nota: "; N1
+20 INPUT "Digite a segunda nota: "; N2
+30 MEDIA = (N1 + N2) / 2
+40 IF MEDIA >= 60 THEN PRINT "Aprovado direto"
+50 IF MEDIA < 30 THEN PRINT "Reprovado direto"
+60 IF MEDIA < 60 AND MEDIA >= 30 THEN INPUT "Digite a nova nota: "; N3
+70 NP3 = (N1 + N2 + N3) / 3
+80 IF NP3 >= 50 AND MEDIA < 60 AND MEDIA >= 30 THEN PRINT "Aprovado pela NP3"
+90 IF NP3 < 50 AND MEDIA < 60 AND MEDIA >= 30 THEN PRINT "Reprovado na NP3"
+100 END
