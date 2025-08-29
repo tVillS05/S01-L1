@@ -1,0 +1,15 @@
+print("Quantos números?")
+qtd = tonumber(io.read())
+numeros = {}
+
+for i = 1, qtd do
+    numeros[i] = tonumber(io.read())
+end
+
+print("Pares:")
+for i = 1, qtd do
+    if numeros[i] % 2 == 0 then
+        io.write(numeros[i] .. " ")
+    end
+end
+print()
