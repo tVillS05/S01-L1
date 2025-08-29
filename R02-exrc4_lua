@@ -1,0 +1,28 @@
+function calculadora(a, b, op)
+    if op == "+" then
+        return a + b
+    elseif op == "-" then
+        return a - b
+    elseif op == "*" then
+        return a * b
+    elseif op == "/" then
+        if b == 0 then
+            return "Erro: divisão por zero!"
+        else
+            return a / b
+        end
+    else
+        return "Operador inválido!"
+    end
+end
+
+print("Digite o primeiro número:")
+local a = tonumber(io.read())
+print("Digite o segundo número:")
+local b = tonumber(io.read())
+print("Digite o operador (+ - * /):")
+local op = io.read()
+
+local resultado = calculadora(a, b, op)
+
+print("Resultado:", resultado)
