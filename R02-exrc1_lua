@@ -1,0 +1,12 @@
+print("Digite M:")
+M = tonumber(io.read())
+print("Digite N:")
+N = tonumber(io.read())
+print("Digite X:")
+X = tonumber(io.read())
+
+for i = M, N do
+    if i % X == 0 then
+        print(i)
+    end
+end
