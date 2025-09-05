@@ -1,0 +1,40 @@
+use std::io::{self, Write};
+
+fn calcular_media(nota1: f64, nota2: f64, nota3: f64) -> f64 {
+    let peso1 = 2.0;
+    let peso2 = 3.0;
+    let peso3 = 5.0;
+    let soma_pesos = peso1 + peso2 + peso3;
+
+    (nota1 * peso1 + nota2 * peso2 + nota3 * peso3) / soma_pesos
+}
+
+fn main() {
+    let mut entrada = String::new();
+
+    print!("Digite a nota 1: ");
+    io::stdout().flush().unwrap();
+    io::stdin().read_line(&mut entrada).expect("Erro ao ler a nota 1");
+    let nota1: f64 = entrada.trim().parse().expect("Nota inválida");
+    entrada.clear();
+
+    print!("Digite a nota 2: ");
+    io::stdout().flush().unwrap();
+    io::stdin().read_line(&mut entrada).expect("Erro ao ler a nota 2");
+    let nota2: f64 = entrada.trim().parse().expect("Nota inválida");
+    entrada.clear();
+
+    print!("Digite a nota 3: ");
+    io::stdout().flush().unwrap();
+    io::stdin().read_line(&mut entrada).expect("Erro ao ler a nota 3");
+    let nota3: f64 = entrada.trim().parse().expect("Nota inválida");
+
+    let media = calcular_media(nota1, nota2, nota3);
+    println!("\nMédia: {:.2}", media);
+
+    if media >= 7.0 {
+        println!("Aprovado");
+    } else {
+        println!("Reprovado");
+    }
+}
