@@ -1,0 +1,48 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class SerVivo {
+protected:
+    string nome;
+public:
+    void setNome(string n) { nome = n; }
+    virtual void apresentar() { cout << "Eu sou " << nome << endl; }
+    virtual ~SerVivo() {}
+};
+
+class Humano : public SerVivo {
+public:
+    void apresentar() { cout << "Eu sou humano e me chamo " << nome << endl; }
+};
+
+class Elfo : public SerVivo {
+public:
+    void apresentar() { cout << "Eu sou elfo e me chamo " << nome << endl; }
+};
+
+class Fada : public SerVivo {
+public:
+    void apresentar() { cout << "Eu sou fada e me chamo " << nome << endl; }
+};
+
+int main() {
+    SerVivo* h = new Humano();
+    h->setNome("Arthur");
+
+    SerVivo* e = new Elfo();
+    e->setNome("Legolas");
+
+    SerVivo* f = new Fada();
+    f->setNome("Sylphie");
+
+    h->apresentar();
+    e->apresentar();
+    f->apresentar();
+
+    delete h;
+    delete e;
+    delete f;
+
+    return 0;
+}
