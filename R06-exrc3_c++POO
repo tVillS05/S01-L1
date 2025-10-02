@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Pessoa {
+protected:
+    string nome;
+public:
+    void setNome(string n) { nome = n; }
+    virtual void apresentar() { cout << "Meu nome e " << nome << endl; }
+    virtual ~Pessoa() {}
+};
+
+class Professor : public Pessoa {
+private:
+    string disciplina;
+public:
+    void setDisciplina(string d) { disciplina = d; }
+    void apresentar() { cout << "Meu nome e " << nome << " e sou professor de " << disciplina << endl; }
+};
+
+class Aluno : public Pessoa {
+private:
+    string curso;
+public:
+    void setCurso(string c) { curso = c; }
+    void apresentar() { cout << "Meu nome e " << nome << " e sou aluno de " << curso << endl; }
+};
+
+int main() {
+    Pessoa* p1 = new Professor();
+    p1->setNome("Carlos");
+    dynamic_cast<Professor*>(p1)->setDisciplina("Matematica");
+
+    Pessoa* p2 = new Aluno();
+    p2->setNome("Pablo");
+    dynamic_cast<Aluno*>(p2)->setCurso("Engenharia");
+
+    p1->apresentar();
+    p2->apresentar();
+
+    delete p1;
+    delete p2;
+
+    return 0;
+}
