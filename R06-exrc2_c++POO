@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Pessoa {
+private:
+    string nome;
+    int idade;
+public:
+    void setNome(string n) { nome = n; }
+    string getNome() { return nome; }
+    void setIdade(int i) { idade = i; }
+    int getIdade() { return idade; }
+};
+
+class Protagonista : public Pessoa {
+private:
+    int nivel;
+public:
+    void setNivel(int n) { nivel = n; }
+    int getNivel() { return nivel; }
+};
+
+class Personagem : public Pessoa {
+private:
+    int rank;
+public:
+    void setRank(int r) { rank = r; }
+    int getRank() { return rank; }
+};
+
+int main() {
+    Protagonista p1;
+    p1.setNome("Protagonista"); p1.setNivel(5);
+
+    Personagem p2;
+    p2.setNome("Aliado"); p2.setRank(8);
+
+    cout << p1.getNome() << " - nivel: " << p1.getNivel() << endl;
+    cout << p2.getNome() << " - rank: " << p2.getRank() << endl;
+
+    return 0;
+}
