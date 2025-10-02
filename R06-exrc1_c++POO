@@ -1,0 +1,31 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Personagem {
+public:
+    string nome;
+    int nivel;
+    int dano;
+    int vida;
+
+    void atacar(Personagem &alvo) {
+        cout << nome << " atacou " << alvo.nome << " causando " << dano << " de dano" << endl;
+        alvo.vida -= dano;
+        if (alvo.vida < 0) alvo.vida = 0;
+    }
+};
+
+int main() {
+    Personagem p1, p2;
+
+    p1.nome = "P1"; p1.nivel = 5; p1.dano = 10; p1.vida = 50;
+    p2.nome = "P2"; p2.nivel = 4; p2.dano = 12; p2.vida = 40;
+
+    p1.atacar(p2);
+
+    cout << p1.nome << " - vida: " << p1.vida << endl;
+    cout << p2.nome << " - vida: " << p2.vida << endl;
+
+    return 0;
+}
