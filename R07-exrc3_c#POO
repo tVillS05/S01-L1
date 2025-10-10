@@ -1,0 +1,80 @@
+using System;
+using System.Collections.Generic;
+
+public class Feitico
+{
+    public string Nome { get; set; }
+
+    public Feitico(string nome)
+    {
+        Nome = nome;
+    }
+}
+
+public class Grimorio
+{
+    private List<Feitico> feitiços = new List<Feitico>();
+
+    public void AdicionarFeitico(Feitico f)
+    {
+        feitiços.Add(f);
+    }
+
+    public void ListarFeiticos()
+    {
+        Console.WriteLine("Feitiços no Grimório:");
+        foreach (var f in feitiços)
+            Console.WriteLine($"- {f.Nome}");
+    }
+}
+
+public class Ferramenta
+{
+    public string Nome { get; set; }
+
+    public Ferramenta(string nome)
+    {
+        Nome = nome;
+    }
+}
+
+public class Maga
+{
+    public string Nome { get; set; } = "Frieren";
+    public Grimorio Grimorio { get; private set; }
+    public List<Ferramenta> Ferramentas { get; private set; }
+
+    public Maga(List<Ferramenta> ferramentas)
+    {
+        Grimorio = new Grimorio(); // composição
+        Ferramentas = ferramentas; // agregação
+    }
+
+    public void MostrarEquipamentos()
+    {
+        Console.WriteLine($"\n{Nome} utiliza as seguintes ferramentas:");
+        foreach (var f in Ferramentas)
+            Console.WriteLine($"- {f.Nome}");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("A Maga Frieren");
+
+        List<Ferramenta> ferramentas = new List<Ferramenta>
+        {
+            new Ferramenta("Lanterna"),
+            new Ferramenta("Capa de Viagem")
+        };
+
+        Maga frieren = new Maga(ferramentas);
+        frieren.Grimorio.AdicionarFeitico(new Feitico("Explosão Arcana"));
+        frieren.Grimorio.AdicionarFeitico(new Feitico("Cura Luminosa"));
+
+        frieren.Grimorio.ListarFeiticos();
+        frieren.MostrarEquipamentos();
+    }
+}
