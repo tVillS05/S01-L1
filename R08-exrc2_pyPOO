@@ -1,0 +1,26 @@
+from abc import ABC, abstractmethod
+
+class Heroi(ABC):
+    def __init__(self, nome: str, funcao: str):
+        self.nome = nome
+        self.funcao = funcao
+
+    @abstractmethod
+    def usar_ultimate(self):
+        pass
+
+
+class Tanque(Heroi):
+    def usar_ultimate(self):
+        print(f"{self.nome} ergue seu escudo e bloqueia todos os ataques!")
+
+
+class Dano(Heroi):
+    def usar_ultimate(self):
+        print(f"{self.nome} dispara sua rajada devastadora!")
+
+
+if __name__ == "__main__":
+    herois = [Tanque("Reinhardt", "Tanque"), Dano("Soldado 76", "Dano")]
+    for h in herois:
+        h.usar_ultimate()
