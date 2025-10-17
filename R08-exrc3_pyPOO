@@ -1,0 +1,34 @@
+class ArmaCorpoACorpo:
+    def __init__(self, nome: str):
+        self.nome = nome
+
+
+class PhantomThieves:
+    def __init__(self, nome: str, arma: str):
+        self.nome = nome
+        self.arma = arma
+
+    def __str__(self):
+        return f"{self.nome} (Arma: {self.arma})"
+
+
+class Joker:
+    def __init__(self, nome: str, membros: list):
+        self.nome = nome
+        self._arma = ArmaCorpoACorpo("Faca")  # composição
+        self._membros = membros  # agregação
+
+    def mostrar_equipe(self):
+        print(f"Equipe de {self.nome}:")
+        for membro in self._membros:
+            print(membro)
+
+
+if __name__ == "__main__":
+    equipe = [
+        PhantomThieves("Skull", "Porrete"),
+        PhantomThieves("Panther", "Chicote"),
+        PhantomThieves("Fox", "Katana"),
+    ]
+    joker = Joker("Joker", equipe)
+    joker.mostrar_equipe()
