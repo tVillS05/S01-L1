@@ -1,0 +1,41 @@
+from abc import ABC, abstractmethod
+
+class Cibernetico(ABC):
+    @abstractmethod
+    def realizar_hack(self):
+        pass
+
+
+class Implante:
+    def __init__(self, custo: int, funcao: str):
+        self.custo = custo
+        self.funcao = funcao
+
+
+class NetRunner(Cibernetico):
+    def __init__(self, nome: str, custo_implante: int, funcao_implante: str):
+        self.nome = nome
+        self._implante = Implante(custo_implante, funcao_implante)
+
+    def realizar_hack(self):
+        print(f"{self.nome} hackeia com {self._implante.funcao} (custo: {self._implante.custo})")
+
+
+class Faccao:
+    def __init__(self, nome: str, membros: list[Cibernetico]):
+        self.nome = nome
+        self._membros = membros
+
+    def hackear_todos(self):
+        print(f"Facção {self.nome} iniciando ataque coordenado:")
+        for membro in self._membros:
+            membro.realizar_hack()
+
+
+if __name__ == "__main__":
+    runners = [
+        NetRunner("V", 3000, "Implante Neural"),
+        NetRunner("Lucy", 5000, "Interface Cérebro-Rede"),
+    ]
+    faccao = Faccao("Maelstrom", runners)
+    faccao.hackear_todos()
