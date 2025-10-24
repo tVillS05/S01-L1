@@ -1,0 +1,49 @@
+class Musico
+  def initialize(nome, instrumento)
+    @nome = nome
+    @instrumento = instrumento
+  end
+
+  def tocar_partitura(peca)
+    raise NotImplementedError, "Subclasse deve implementar este método!"
+  end
+end
+
+class Pianista < Musico
+  def tocar_partitura(peca)
+    puts("#{@nome} está tocando '#{peca}' no piano")
+  end
+end
+
+class Violinista < Musico
+  def tocar_partitura(peca)
+    puts("#{@nome} está tocando '#{peca}' no violino")
+  end
+end
+
+class Maestro
+  def initialize(musicos)
+    @musicos = musicos
+  end
+
+  def iniciar_ensaio(peca)
+    puts("Iniciando ensaio da peça '#{peca}'...")
+    @musicos.each { |m| m.tocar_partitura(peca) }
+  end
+
+  def mudar_foco(estado)
+    @musicos.map { |m| "#{m.class} agora está #{estado}!" }
+  end
+end
+
+musicos = [
+  Pianista.new("Kousei", "Piano"),
+  Violinista.new("Kaori", "Violino")
+]
+
+puts("Qual peça será tocada?")
+peca = gets.chomp
+
+maestro = Maestro.new(musicos)
+maestro.iniciar_ensaio(peca)
+puts(maestro.mudar_foco("Concentrado"))
