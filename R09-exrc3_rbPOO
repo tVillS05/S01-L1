@@ -1,0 +1,47 @@
+class MicroondasUnidade
+  def aquecer_por(segundos)
+    puts("Aquecendo por #{segundos} segundos...")
+  end
+end
+
+class DMail
+  attr_reader :conteudo, :hora_envio
+
+  def initialize(conteudo, hora_envio)
+    @conteudo = conteudo
+    @hora_envio = hora_envio
+  end
+
+  def to_s
+    "D-Mail enviado às #{@hora_envio}: #{@conteudo}"
+  end
+end
+
+class TelefoneDeMicroondas
+  def initialize
+    @unidade = MicroondasUnidade.new
+    @dmails = []
+  end
+
+  def enviar_dmail
+    puts("Digite o conteúdo do D-Mail:")
+    conteudo = gets.chomp
+    puts("Digite a hora de envio (ex: 10:30):")
+    hora = gets.chomp
+    @unidade.aquecer_por(3)
+    dmail = DMail.new(conteudo, hora)
+    @dmails << dmail
+    puts("D-Mail enviado com sucesso!")
+  end
+
+  def listar_dmails(horario_corte)
+    recentes = @dmails.select { |d| d.hora_envio > horario_corte }
+    recentes.each { |d| puts(d.to_s) }
+  end
+end
+
+app = TelefoneDeMicroondas.new
+app.enviar_dmail
+puts("Digite um horário de corte para listar D-Mails:")
+hora_corte = gets.chomp
+app.listar_dmails(hora_corte)
