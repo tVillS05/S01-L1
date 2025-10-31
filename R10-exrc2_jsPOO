@@ -1,0 +1,48 @@
+class IExplorador {
+    explorar() {
+        throw new Error("Método explorar() não implementado");
+    }
+}
+
+class ODM_Gear {
+    mover() {
+        return " Mobilidade com ODM Gear";
+    }
+}
+
+class Soldado extends IExplorador {
+    constructor(nome) {
+        super();
+        this.nome = nome;
+        this.equipamento = new ODM_Gear();
+    }
+
+    explorar() {
+        return `${this.nome} está explorando`;
+    }
+
+    usarEquipamento() {
+        return this.equipamento.mover();
+    }
+}
+
+class Esquadrao {
+    constructor(nome, soldados = []) {
+        this.nome = nome;
+        this.soldados = soldados;
+    }
+
+    iniciarMissao() {
+        console.log(`Esquadrão ${this.nome}`);
+        this.soldados.forEach(s => {
+            console.log(s.explorar(), "|", s.usarEquipamento());
+        });
+    }
+}
+
+const esquadrao = new Esquadrao("Levi Squad", [
+    new Soldado("Levi"),
+    new Soldado("Mikasa")
+]);
+
+esquadrao.iniciarMissao();
