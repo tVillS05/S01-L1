@@ -1,0 +1,51 @@
+class Pokemon {
+    #vida = 100;
+
+    constructor(nome, tipo, dano) {
+        this.nome = nome;
+        this.tipo = tipo;
+        this.dano = dano;
+    }
+
+    get vida() {
+        return this.#vida;
+    }
+
+    receberDano(valor) {
+        this.#vida -= valor;
+        if (this.#vida < 0) this.#vida = 0;
+        console.log(`${this.nome} recebeu ${valor} de dano. Vida: ${this.#vida}`);
+    }
+
+    atacar(alvo) {
+        throw new Error("Método atacar() não implementado");
+    }
+}
+
+class Pikachu extends Pokemon {
+    constructor() {
+        super("Pikachu", "Elétrico", 30);
+    }
+
+    atacar(alvo) {
+        console.log("Pikachu usou Choque do Trovão!");
+        alvo.receberDano(this.dano);
+    }
+}
+
+class Charmander extends Pokemon {
+    constructor() {
+        super("Charmander", "Fogo", 25);
+    }
+
+    atacar(alvo) {
+        console.log("Charmander usou Brasas!");
+        alvo.receberDano(this.dano);
+    }
+}
+
+const pikachu = new Pikachu();
+const charmander = new Charmander();
+
+pikachu.atacar(charmander);
+charmander.atacar(pikachu);
