@@ -1,0 +1,54 @@
+class Hunter {
+    constructor(nome) {
+        this.nome = nome;
+    }
+
+    rastrearLocal() {
+        throw new Error("Método rastrearLocal() não implementado");
+    }
+}
+
+class Especialista extends Hunter {
+    constructor(nome, habilidade) {
+        super(nome);
+        this.habilidade = habilidade;
+    }
+
+    rastrearLocal() {
+        return `${this.nome} usa ${this.habilidade} para rastrear`;
+    }
+}
+
+class Manipulador extends Hunter {
+    constructor(nome, alvo) {
+        super(nome);
+        this.alvo = alvo;
+    }
+
+    rastrearLocal() {
+        return `${this.nome} rastreia ${this.alvo}`;
+    }
+}
+
+class Batalhao {
+    constructor() {
+        this.hunters = new Set();
+    }
+
+    adicionar(hunter) {
+        if (![...this.hunters].some(h => h.nome === hunter.nome)) {
+            this.hunters.add(hunter);
+        }
+    }
+
+    rastrear() {
+        this.hunters.forEach(h => console.log(h.rastrearLocal()));
+    }
+}
+
+const b = new Batalhao();
+b.adicionar(new Especialista("Gon", "Olfato Selvagem"));
+b.adicionar(new Manipulador("Killua", "alvos elétricos"));
+b.adicionar(new Especialista("Gon", "Olfato Selvagem"));
+
+b.rastrear();
