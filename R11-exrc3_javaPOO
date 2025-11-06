@@ -1,0 +1,69 @@
+import java.util.HashMap;
+
+interface Rastreavel {
+    String obterCoordenadas();
+}
+
+class Poder {
+    private String tipo;
+
+    public Poder(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getTipo() { return tipo; }
+}
+
+class Alien implements Rastreavel {
+    private String nome;
+    private Poder poder;
+
+    public Alien(String nome, String tipoPoder) {
+        this.nome = nome;
+        this.poder = new Poder(tipoPoder);
+    }
+
+    public String getNome() { return nome; }
+
+    public String obterCoordenadas() {
+        return "Coordenadas do Alien " + nome + ": [100,200]";
+    }
+}
+
+class Youkai implements Rastreavel {
+    private String nome;
+    private Poder poder;
+
+    public Youkai(String nome, String tipoPoder) {
+        this.nome = nome;
+        this.poder = new Poder(tipoPoder);
+    }
+
+    public String getNome() { return nome; }
+
+    public String obterCoordenadas() {
+        return "Coordenadas do Youkai " + nome + ": [300,400]";
+    }
+}
+
+class RegistroOculto {
+    private HashMap<String, Rastreavel> entidades = new HashMap<>();
+
+    public void adicionarEntidade(String nome, Rastreavel e) {
+        entidades.putIfAbsent(nome, e);
+    }
+
+    public void listarEntidades() {
+        for (String nome : entidades.keySet())
+            System.out.println(nome);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        RegistroOculto registro = new RegistroOculto();
+        registro.adicionarEntidade("Zorg", new Alien("Zorg", "Telepatia"));
+        registro.adicionarEntidade("Hana", new Youkai("Hana", "Ilusão"));
+        registro.listarEntidades();
+    }
+}
