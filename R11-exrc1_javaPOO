@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+
+class Personagem {
+    private String nome;
+    private int idade;
+
+    public Personagem(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
+    public String getNome() { return nome; }
+    public int getIdade() { return idade; }
+}
+
+class Mago extends Personagem {
+    private String magiaPrincipal;
+
+    public Mago(String nome, int idade, String magiaPrincipal) {
+        super(nome, idade);
+        this.magiaPrincipal = magiaPrincipal;
+    }
+
+    public String getMagiaPrincipal() { return magiaPrincipal; }
+}
+
+class Divisao {
+    private String nomeDivisao;
+
+    public Divisao(String nomeDivisao) {
+        this.nomeDivisao = nomeDivisao;
+    }
+
+    public String getNomeDivisao() { return nomeDivisao; }
+}
+
+class Castelo {
+    private ArrayList<Divisao> divisoes = new ArrayList<>();
+
+    public void adicionarDivisao(Divisao div) {
+        divisoes.add(div);
+    }
+
+    public void listarDivisoes() {
+        for (Divisao d : divisoes)
+            System.out.println("Divisão: " + d.getNomeDivisao());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Mago howl = new Mago("Howl", 27, "Fogo");
+        Castelo castelo = new Castelo();
+        castelo.adicionarDivisao(new Divisao("Cozinha"));
+        castelo.adicionarDivisao(new Divisao("Biblioteca"));
+        System.out.println("Mago: " + howl.getNome() + " - Magia: " + howl.getMagiaPrincipal());
+        castelo.listarDivisoes();
+    }
+}
