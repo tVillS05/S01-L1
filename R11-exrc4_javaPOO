@@ -1,0 +1,61 @@
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+
+class Boss {
+    private String nome;
+    private String pontoFraco;
+    private LinkedHashSet<String> moveSet = new LinkedHashSet<>();
+
+    public Boss(String nome, String pontoFraco) {
+        this.nome = nome;
+        this.pontoFraco = pontoFraco;
+    }
+
+    public String getNome() { return nome; }
+    public String getPontoFraco() { return pontoFraco; }
+
+    public void adicionarAtaque(String ataque) {
+        moveSet.add(ataque);
+    }
+
+    public void exibirAtaques() {
+        for (String a : moveSet)
+            System.out.println("- " + a);
+    }
+}
+
+class BossMagico extends Boss {
+    public BossMagico(String nome, String pontoFraco) {
+        super(nome, pontoFraco);
+    }
+}
+
+class Encontro {
+    private HashMap<String, Boss> batalhas = new HashMap<>();
+
+    public void adicionarBoss(String id, Boss boss) {
+        batalhas.put(id, boss);
+    }
+
+    public void iniciarBatalha(String idBoss) {
+        Boss boss = batalhas.get(idBoss);
+        if (boss != null) {
+            System.out.println("Iniciando batalha contra: " + boss.getNome());
+            boss.exibirAtaques();
+        } else {
+            System.out.println("Boss não encontrado.");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        BossMagico b1 = new BossMagico("Morgath", "Luz");
+        b1.adicionarAtaque("Bola de Fogo");
+        b1.adicionarAtaque("Tempestade Sombria");
+
+        Encontro encontro = new Encontro();
+        encontro.adicionarBoss("B1", b1);
+        encontro.iniciarBatalha("B1");
+    }
+}
