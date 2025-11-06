@@ -1,0 +1,66 @@
+import java.util.ArrayList;
+
+class Cafe {
+    private String nome;
+    private double precoBase;
+
+    public Cafe(String nome, double precoBase) {
+        this.nome = nome;
+        this.precoBase = precoBase;
+    }
+
+    public String getNome() { return nome; }
+
+    public double calcularPrecoFinal() {
+        return precoBase;
+    }
+}
+
+class CafeGourmet extends Cafe {
+    private double bonusAroma;
+
+    public CafeGourmet(String nome, double precoBase, double bonusAroma) {
+        super(nome, precoBase);
+        this.bonusAroma = bonusAroma;
+    }
+
+    @Override
+    public double calcularPrecoFinal() {
+        return super.calcularPrecoFinal() + bonusAroma;
+    }
+}
+
+class Menu {
+    private ArrayList<Cafe> cafes = new ArrayList<>();
+
+    public void adicionarCafe(Cafe c) {
+        cafes.add(c);
+    }
+
+    public void listarCafes() {
+        for (Cafe c : cafes)
+            System.out.println(c.getNome() + " - R$ " + c.calcularPrecoFinal());
+    }
+}
+
+class Cafeteria {
+    private Menu menu;
+
+    public Cafeteria(Menu menu) {
+        this.menu = menu;
+    }
+
+    public void exibirMenu() {
+        menu.listarCafes();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Menu menu = new Menu();
+        menu.adicionarCafe(new Cafe("Café Preto", 5.0));
+        menu.adicionarCafe(new CafeGourmet("Café Gourmet", 7.0, 2.5));
+        Cafeteria leblanc = new Cafeteria(menu);
+        leblanc.exibirMenu();
+    }
+}
