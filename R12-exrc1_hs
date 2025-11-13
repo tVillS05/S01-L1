@@ -1,0 +1,30 @@
+module Main where
+
+data Bebida = Bebida {
+    nome :: String,
+    tipo :: String,
+    preco :: Double
+} deriving (Show)
+
+data Status = Aberto | Entregue | Cancelado deriving (Eq, Show)
+
+data Pedido = Pedido {
+    bebidas :: [Bebida],
+    status :: Status
+} deriving (Show)
+
+valorTotalPedido :: Pedido -> Double
+valorTotalPedido (Pedido _ Cancelado) = 0
+valorTotalPedido (Pedido bs _) = sum (map preco bs) + 5
+
+primeiraBebida :: Pedido -> String
+primeiraBebida (Pedido [] _) = "Nenhuma bebida"
+primeiraBebida (Pedido (x:_) _) = nome x
+
+main :: IO ()
+main = do
+    let b1 = Bebida "Café Expresso" "Café" 10
+    let b2 = Bebida "Chá Verde" "Chá" 7
+    let pedido = Pedido [b1,b2] Aberto
+    print (valorTotalPedido pedido)
+    putStrLn (primeiraBebida pedido)
