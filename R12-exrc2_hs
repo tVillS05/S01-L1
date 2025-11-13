@@ -1,0 +1,31 @@
+module Main where
+
+data Item = Item {
+    nomeItem :: String,
+    categoria :: String,
+    precoItem :: Double
+}
+
+data CompraZelda = CompraZelda {
+    itens :: [Item]
+}
+
+calculaDesconto :: [Item] -> Double
+calculaDesconto xs
+    | total > 200 = total * 0.10
+    | otherwise = 0
+    where total = sum (map precoItem xs)
+
+valorFinal :: CompraZelda -> Double
+valorFinal c
+    | total > 200 = total - calculaDesconto (itens c)
+    | otherwise = total + 15
+    where total = sum (map precoItem (itens c))
+
+main :: IO ()
+main = do
+    let i1 = Item "Espada" "Arma" 150
+    let i2 = Item "Pocao Forte" "Poção" 80
+    let compra1 = CompraZelda [i1,i2]
+    print (valorFinal compra1)
+    print (map nomeItem (itens compra1))
