@@ -1,0 +1,45 @@
+module Main where
+
+data Banda = Banda {
+    nomeBanda :: String,
+    genero :: String,
+    cache :: Double
+}
+
+data StatusEvento = Ativo | Encerrado | Cancelado deriving (Eq)
+
+data Evento = Evento {
+    bandas :: [Banda],
+    statusEvento :: StatusEvento
+}
+
+custoTotalEvento :: Evento -> Double
+custoTotalEvento e
+    | statusEvento e == Cancelado = 0
+    | otherwise = total * 1.20
+    where total = sum (map cache (bandas e))
+
+bandaAbertura :: Evento -> String
+bandaAbertura e =
+    case bandas e of
+        [] -> "Nenhuma banda"
+        (x:_) -> nomeBanda x
+
+bandaEncerramento :: Evento -> String
+bandaEncerramento e =
+    case bandas e of
+        [] -> "Nenhuma banda"
+        xs -> nomeBanda (last xs)
+
+main :: IO ()
+main = do
+    let b1 = Banda "Alpha" "Rock" 1000
+    let b2 = Banda "Beta" "Indie" 800
+    let ev1 = Evento [b1,b2] Ativo
+    let ev2 = Evento [b1] Encerrado
+    let ev3 = Evento [b2] Cancelado
+    print (custoTotalEvento ev1)
+    print (custoTotalEvento ev2)
+    print (custoTotalEvento ev3)
+    putStrLn (bandaAbertura ev1)
+    putStrLn (bandaEncerramento ev1)
