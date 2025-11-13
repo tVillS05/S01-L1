@@ -1,0 +1,46 @@
+module Main where
+
+data Servico = Servico {
+    nomeServico :: String,
+    tipoServico :: String,
+    precoBase :: Double
+}
+
+data StatusAt = EmAndamento | Finalizado | Cancelado deriving (Eq)
+
+data Atendimento = Atendimento {
+    servicos :: [Servico],
+    statusAt :: StatusAt
+}
+
+bonusEspiritual :: [Servico] -> Double
+bonusEspiritual xs
+    | length xs > 3 && total > 500 = total * 1.25 * 0.90
+    | length xs > 3 = total * 1.25
+    | total > 500 = total * 0.90
+    | otherwise = total
+    where total = sum (map precoBase xs)
+
+valorFinalAtendimento :: Atendimento -> Double
+valorFinalAtendimento a
+    | statusAt a == Cancelado = 0
+    | otherwise = bonusEspiritual (servicos a)
+
+descricaoPrimeiroServico :: Atendimento -> String
+descricaoPrimeiroServico a =
+    case servicos a of
+        [] -> "Nenhum serviço"
+        (x:_) -> nomeServico x ++ " - " ++ tipoServico x
+
+main :: IO ()
+main = do
+    let s1 = Servico "Banho Real" "Banho" 200
+    let s2 = Servico "Massagem" "Massagem" 150
+    let s3 = Servico "Banquete" "Banquete" 300
+    let at1 = Atendimento [s1,s2] Finalizado
+    let at2 = Atendimento [s1,s2,s3,s2] Finalizado
+    let at3 = Atendimento [s3] Cancelado
+    print (valorFinalAtendimento at1)
+    print (valorFinalAtendimento at2)
+    print (valorFinalAtendimento at3)
+    putStrLn (descricaoPrimeiroServico at1)
