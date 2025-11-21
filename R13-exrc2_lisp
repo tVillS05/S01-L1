@@ -1,0 +1,32 @@
+;; Estrutura criatura
+(defstruct criatura
+  nome ambiente periculosidade vida-media)
+
+;; Catálogo com 4 criaturas
+(defparameter catalogo
+  (list
+    (make-criatura :nome "Peixe Azul" :ambiente "Shallows" :periculosidade "Baixa" :vida-media 5)
+    (make-criatura :nome "Reaper Leviathan" :ambiente "Ocean" :periculosidade "Alta" :vida-media 80)
+    (make-criatura :nome "Ghost Ray" :ambiente "Deep" :periculosidade "Média" :vida-media 40)
+    (make-criatura :nome "Crab Squid" :ambiente "Deep" :periculosidade "Alta" :vida-media 60)))
+
+;; Filtro de perigo (remove Baixa)
+(defun filtra-por-perigo (catalogo)
+  (remove-if (lambda (x)
+               (string= (criatura-periculosidade x) "Baixa"))
+             catalogo))
+
+;; Relatório apenas criaturas Deep
+(defun relatorio-profundidade (catalogo)
+  (mapcar
+    (lambda (c)
+      (format nil "~A: Vive em ~A"
+              (criatura-nome c)
+              (criatura-ambiente c)))
+    (remove-if-not
+      (lambda (x)
+        (string= (criatura-ambiente x) "Deep"))
+      catalogo)))
+
+(print (filtra-por-perigo catalogo))
+(print (relatorio-profundidade catalogo))
