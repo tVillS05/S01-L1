@@ -1,0 +1,37 @@
+;; Estrutura item
+(defstruct item
+  nome tipo preco forca-magica)
+
+;; Catálogo com 3 tipos
+(defparameter catalogo
+  (list
+   (make-item :nome "Espada Sombria" :tipo "Arma" :preco 100 :forca-magica 120)
+   (make-item :nome "Poção Vital" :tipo "Pocao" :preco 30 :forca-magica 10)
+   (make-item :nome "Amuleto Antigo" :tipo "Artefato" :preco 200 :forca-magica 90)
+   (make-item :nome "Lâmina Rúnica" :tipo "Arma" :preco 150 :forca-magica 60)))
+
+;; Função pura
+(defun adiciona-imposto (preco) (* preco 1.15))
+
+(defun bonus-maldicao (forca)
+  (if (> forca 80) (* forca 1.5) forca))
+
+(defun processa-venda (catalogo)
+  (let* ((armas (remove-if-not
+                 (lambda (x) (string= (item-tipo x) "Arma"))
+                 catalogo))
+         (armas-taxadas
+           (mapcar
+            (lambda (a)
+              (adiciona-imposto (item-preco a)))
+            armas))
+
+         (armas-final
+           (mapcar
+             (lambda (a)
+               (list (item-nome a)
+                     (bonus-maldicao (item-forca-magica a))))
+             armas)))
+    armas-final))
+
+(print (processa-venda catalogo))
