@@ -1,0 +1,34 @@
+;; Estrutura
+(defstruct ocorrencia
+  nome ritual nivel-medo agentes-enviados)
+
+;; Soma recursiva
+(defun soma-medo-recursiva (lista)
+  (if (null lista)
+      0
+      (+ (ocorrencia-nivel-medo (car lista))
+         (soma-medo-recursiva (cdr lista)))))
+
+;; analise-final
+(defun analise-final (lista)
+  (let* ((media (/ (soma-medo-recursiva lista)
+                   (length lista))))
+    (remove-if
+     #'null
+     (mapcar
+      (lambda (o)
+        (if (and (> (ocorrencia-agentes-enviados o) 3)
+                 (> (ocorrencia-nivel-medo o) media))
+            (ocorrencia-nome o)
+            nil))
+      lista))))
+
+;; Teste
+(defparameter ocorrencias
+  (list
+   (make-ocorrencia :nome "Mansão" :ritual "Sangue" :nivel-medo 80 :agentes-enviados 4)
+   (make-ocorrencia :nome "Catacumbas" :ritual "Selamento" :nivel-medo 40 :agentes-enviados 2)
+   (make-ocorrencia :nome "Floresta" :ritual "Convocação" :nivel-medo 70 :agentes-enviados 5)
+   (make-ocorrencia :nome "Hospital" :ritual "Exorcismo" :nivel-medo 30 :agentes-enviados 1)))
+
+(print (analise-final ocorrencias))
